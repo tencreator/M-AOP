@@ -5,7 +5,7 @@ game 'gta5'
 
 author 'FuriousFoxGG.'
 description 'A Simple AOP script for FiveM, usage /aop [AOP]'
-version 'BETA - v0.5.0'
+version 'BETA - v0.6.0'
 
 -------------------------------------
 -------------- Shared ---------------
