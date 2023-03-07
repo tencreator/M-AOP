@@ -16,3 +16,11 @@
 <br/>Debugging options for everything to be logged into console.
 <br/>When user is out of AOP or a user is in a banned area it teleports them to a place you can change in the Config.lua.
 <br/>a Hud which can be customised in the Config.lua
+
+<br/>Ace permission to allow changing of AOP: 'furiousfoxgg.aop'
+
+<br/>Dependencies for everything to work:
+<br/>PolyZone resource for barriers to be displayed: https://github.com/mkafrin/PolyZone
+<br/>T-Notify resource for notifications to be displayed: https://github.com/TasoOneAsia/t-notify 
+
+<br/>AOP Script inspired by: https://github.com/LGDevelopment/Lances-AOP and BCDOJRP
