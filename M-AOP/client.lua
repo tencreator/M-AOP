@@ -3,8 +3,16 @@ Citizen.Trace("\n===========\nLoading " ..GetCurrentResourceName().. "\nScript E
 if Config.ScriptEnabled then
 if GetCurrentResourceName() == "M-AOP" then
 
-HudFormat = "~g~~h~AOP: ~w~%s" --S is defined as the string, we format it down ther
-AOP = Config.AOP.DefaultAOP
+if Config.PTEnabled then  
+HudFormat = Config.Hud.TextColour.."~h~AOP: ~w~%s | "..Config.Hud.TextColour.."Peacetime: %s" --S is defined as the string, we format it down there
+Peacetime = false
+PeacetimeText = "~r~Disabled"
+else 
+  HudFormat = Config.Hud.TextColour.."~h~AOP: ~w~%s" --S is defined as the string, we format it down there
+
+end
+
+AOP = Config.Misc.DefaultAOP
 
 --Tables
 IsBanned = {Sandy = false, Paleto = false, Legion = false}
@@ -15,17 +23,39 @@ ReadyForAOPChange = {SandyBanned = false, PaletoBanned = false, LegionBanned = f
 -------------------------------------
 -------------- Threads --------------
 -------------------------------------
+
+--HUD
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
-    HudText = string.format(HudFormat, AOP)
+    HudText = string.format(HudFormat, AOP, PeacetimeText)
      Draw2DText(Config.Hud.x, Config.Hud.y, HudText, Config.Hud.scale)
    end
 end)
 
+--PEACETIME UPDATE
+Citizen.CreateThread(function()
+  while true do
+    Citizen.Wait(0)
+    if Peacetime then 
+      PeacetimeText = "~g~Enabled"
+      local PlayerPed = GetPlayerPed(-1)
+      if IsControlJustReleased(0, 106) then
+        exports['t-notify']:Custom({style  =  'error', duration  =  5000, title  =  'Peacetime Announcement', message  =  'Peacetime is active. This means you cannot shoot.', sound  =  false})
+        end
+        SetPlayerCanDoDriveBy(PlayerPed, false)
+        DisablePlayerFiring(PlayerPed, true)
+        DisableControlAction(0, 140) -- Melee R
+    else
+      PeacetimeText = "~r~Disabled"
+        end
+     end
+  end)
+
 --Do not remove this or I will commit a murder, this is for when a player connects it makes sure AOP is updated etc.
 Citizen.CreateThread(function()
 	TriggerServerEvent("M:ServerUpdateAOP")
+  TriggerServerEvent("M:ServerSetPeacetime")
 	return
 end)
 
@@ -54,7 +84,18 @@ end
 RegisterNetEvent("M:UpdateAOP")
 AddEventHandler("M:UpdateAOP", function(NewAOP)
   AOP = NewAOP
-  TriggerEvent("M:DebugLog", "===========\nUpdating AOP Cause someone changed it??? true \nChecking for banned areas\nAOP Changed to: " ..AOP.. "\n===========\nSandy Banned: " ..tostring(IsBanned.Sandy).. "\nPaleto Banned: " ..tostring(IsBanned.Paleto).. "\nLegion Banned:" ..tostring(IsBanned.Legion).. "\nBlaine County: " ..tostring(IsAOP.BC).. "\nLos Santos: " ..tostring(IsAOP.LS).. "\n===========")
+  TriggerEvent("M:InformStats")
+end)
+
+RegisterNetEvent("M:SetPeacetime")
+AddEventHandler("M:SetPeacetime", function(boolean)
+   Peacetime = boolean
+   TriggerEvent("M:InformStats")
+end)
+
+RegisterNetEvent("M:InformStats")
+AddEventHandler("M:InformStats", function()
+  TriggerEvent("M:DebugLog", "===========\nUpdating AOP or Peacetime because someone changed state. \nChecking for banned areas\nAOP Changed to: " ..AOP.. "\nPeacetime Enabled: " ..tostring(Peacetime).. "\n===========\nSandy Banned: " ..tostring(IsBanned.Sandy).. "\nPaleto Banned: " ..tostring(IsBanned.Paleto).. "\nLegion Banned: " ..tostring(IsBanned.Legion).. "\nBlaine County: " ..tostring(IsAOP.BC).. "\nLos Santos: " ..tostring(IsAOP.LS).. "\n===========")
 end)
 
 RegisterNetEvent("M:ClearAOPBans")
@@ -72,7 +113,12 @@ AddEventHandler("M:ClearAOPBans", function()
    Inside.PaletoBanned = false
    ReadyForAOPChange.PaletoBanned = false
   end
-
+  if IsBanned.Legion then
+    LegionBanned:destroy()
+    IsBanned.Legion = false 
+    Inside.LegionBanned = false 
+    ReadyForAOPChange.LegionBanned = false
+  end 
   if IsAOP.BC then
    BlaineCounty:destroy()
    IsAOP.BC = false
@@ -405,5 +451,5 @@ else
   Citizen.Trace("\nERROR: " ..GetCurrentResourceName().. " Needs to be Named M-AOP\n===========")
 end
 else 
-  Citizen.Trace(GetCurrentResourceName().. " is currently disabled as Config.ScriptEnabled = " ..tostring(Config.ScriptEnabled))
+  Citizen.Trace("\n"..GetCurrentResourceName().. " is currently disabled as Config.ScriptEnabled = " ..tostring(Config.ScriptEnabled).. "\n===========")
 end
