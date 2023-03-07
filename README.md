@@ -1,12 +1,12 @@
 # M-AOP
-A simple AOP script, for support join: https://discord.gg/cPSAuJppyr
+<br/>A simple AOP script, for support join: https://discord.gg/cPSAuJppyr
 
-<u>Bannable Areas/Area Of Roleplays<u>
-<i>Sandy Banned  - Banned Area<i>
+<br/>Bannable Areas/Area Of Roleplays
+<br/>Sandy Banned  - Banned Area
 <br/>Legion Banned - Banned Area
 <br/>Paleto Banned - Banned Area
 <br/>Blaine County - AOP
 <br/>Los Santos    - AOP
   
-Command Usage:
-/aop [AOP] - Ensure that there are no typos with the args used above
+<br/>Command Usage:
+<br/><mark>/aop [AOP]<mark> - Ensure that there are no typos with the args used above
