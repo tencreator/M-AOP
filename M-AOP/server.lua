@@ -1,5 +1,3 @@
---Made By FuriousFoxGG.#0001, DM For Support or for more support join: https://discord.gg/cPSAuJppyr
-
 if Config.ScriptEnabled then
 
 AOP = Config.Misc.DefaultAOP
