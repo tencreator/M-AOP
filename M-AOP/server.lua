@@ -62,7 +62,7 @@ end
 
 --Do not remove this beautiful peace of art work
 function CapitalizeFirstLetterOfWord(string)
-    TriggerClientEvent("M:DebugLog", -1, "Capitalizing First Letter of Word Cause FuriousFoxGG.#0001 is a W")
+    TriggerClientEvent("M:AOP:DebugLog", -1, "Capitalizing First Letter of Word Cause FuriousFoxGG.#0001 is a W")
     return string:gsub("(%a)([%w_']*)", function(first, rest)
         return first:upper() .. rest:lower()
     end)
