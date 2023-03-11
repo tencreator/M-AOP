@@ -95,7 +95,7 @@ end)
 
 RegisterNetEvent("M:InformStats")
 AddEventHandler("M:InformStats", function()
-  TriggerEvent("M:DebugLog", "===========\nUpdating AOP or Peacetime because someone changed state. \nChecking for banned areas\nAOP Changed to: " ..AOP.. "\nPeacetime Enabled: " ..tostring(Peacetime).. "\n===========\nSandy Banned: " ..tostring(IsBanned.Sandy).. "\nPaleto Banned: " ..tostring(IsBanned.Paleto).. "\nLegion Banned: " ..tostring(IsBanned.Legion).. "\nBlaine County: " ..tostring(IsAOP.BC).. "\nLos Santos: " ..tostring(IsAOP.LS).. "\n===========")
+  TriggerEvent("M:AOP:DebugLog", "===========\nUpdating AOP or Peacetime because someone changed state. \nChecking for banned areas\nAOP Changed to: " ..AOP.. "\nPeacetime Enabled: " ..tostring(Peacetime).. "\n===========\nSandy Banned: " ..tostring(IsBanned.Sandy).. "\nPaleto Banned: " ..tostring(IsBanned.Paleto).. "\nLegion Banned: " ..tostring(IsBanned.Legion).. "\nBlaine County: " ..tostring(IsAOP.BC).. "\nLos Santos: " ..tostring(IsAOP.LS).. "\n===========")
 end)
 
 RegisterNetEvent("M:ClearAOPBans")
@@ -133,13 +133,13 @@ AddEventHandler("M:ClearAOPBans", function()
   end
 end)
 
-RegisterNetEvent("M:DebugLog")
-AddEventHandler("M:DebugLog", function(msg)
+RegisterNetEvent("M:AOP:DebugLog")
+AddEventHandler("M:AOP:DebugLog", function(msg)
    if Config.Debug then 
     Citizen.Trace("\n" .. msg)
     --[[EVENT COPY AND PASTE, TEHE
-    TriggerClientEvent("M:DebugLog", -1, ARGS_HERE_BUDDY)
-    TriggerEvent("M:DebugLog", ARGS_HERE_BUDDY)
+    TriggerClientEvent("M:AOP:DebugLog", -1, ARGS_HERE_BUDDY)
+    TriggerEvent("M:AOP:DebugLog", ARGS_HERE_BUDDY)
 ]]
     end
 end)
