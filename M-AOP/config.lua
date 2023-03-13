@@ -1,5 +1,7 @@
 Config = {}
 
+Config.AOPAnnounce = "AOP Has changed to %s Please move there or you risk being teleported." --%s is the curren AOP For example if the MSG is AOP: %s it would say AOP: Sandy banned for example.
+
 Config.ScriptEnabled = true --Don't change this please, if you don't want my script in your server delete it but if you want to be awkward and just disable it set this to false
 Config.PTEnabled = true --Set to false if you don't want the peacetime script
 Config.Debug = true --Set to false if you don't want things logged in console, informs of what is going on etc
