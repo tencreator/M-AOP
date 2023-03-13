@@ -25,4 +25,4 @@ Config.Misc = {
     AOPCommand = "aop",
     PTCommand = "peacetime",
     DefaultAOP = "State Wide",
-    }
+}
