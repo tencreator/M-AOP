@@ -9,7 +9,9 @@ RegisterCommand(Config.Misc.AOPCommand, function(source, args, raw)
     if IsPlayerAceAllowed(source, "furiousfoxgg.aop") then 
     if args[1] then
         TriggerClientEvent("M:ClearAOPBans", -1)
-        Announce("error", "AOP Announcement", "AOP Has changed to \"" ..table.concat(args, " ").. "\" Please move there or you risk being teleported..")
+        concatargs = table.concat(args, " ")
+        FinalText = string.format(Config.AOPAnnounce, concatargs)
+        Announce("error", "AOP Announcement", FinalText)
         local FinalAOP = CapitalizeFirstLetterOfWord(table.concat(args, " "))
         AOP = FinalAOP
     if string.find(string.lower(table.concat(args, " ")), "sandy banned") then
